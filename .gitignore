@@ -1,0 +1,3 @@
+*.local.*
+*~
+copy_local_ymls_to_remote.sh

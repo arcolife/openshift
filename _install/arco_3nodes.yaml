@@ -1,0 +1,24 @@
+# Example 1. Single Master and Multiple Nodes Inventory File
+[OSEv3:children]
+masters
+nodes
+
+[OSEv3:vars]
+# ansible_ssh_user=root
+# ansible_ssh_private_key_file="~/.ssh/id_rsa"
+# ansible_become=true
+
+deployment_type=openshift-enterprise
+openshift_master_cluster_method=native
+
+openshift_master_identity_providers=[{'name': 'htpasswd_auth', 'login': 'true', 'challenge': 'true', 'kind': 'HTPasswdPasswordIdentityProvider', 'filename': '/etc/origin/master/htpasswd'}]
+
+[masters]
+10.12.23.220 ansible_ssh_user=root ansible_ssh_private_key_file="~/.ssh/id_rsa"
+
+[nodes]
+10.12.23.220 ansible_ssh_user=root ansible_ssh_private_key_file="~/.ssh/id_rsa" openshift_public_hostname=ose3-master-miq-scale.example.net openshift_node_labels="{'region': 'infra', 'zone': 'default'}" openshift_scheduleable=true
+10.12.23.182 ansible_ssh_user=root ansible_ssh_private_key_file="~/.ssh/id_rsa" openshift_public_hostname=ose3-node-1-miq-scale.example.net openshift_node_labels="{'region': 'primary', 'zone': 'default'}" openshift_scheduleable=true
+10.12.23.183 ansible_ssh_user=root ansible_ssh_private_key_file="~/.ssh/id_rsa" openshift_public_hostname=ose3-node-2-miq-scale.example.net openshift_node_labels="{'region': 'primary', 'zone': 'default'}" openshift_scheduleable=true
+
+[nfs]
